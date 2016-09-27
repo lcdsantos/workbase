@@ -1,0 +1,27 @@
+// Show grid
+.debug {
+  [class^="col-"], .col {
+    background: #EEE;
+    box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    color: #666;
+    padding: 8px 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-indent: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 12px;
+  }
+}
+
+section {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+article {
+  p {
+    margin: 1em 0;
+  }
+}

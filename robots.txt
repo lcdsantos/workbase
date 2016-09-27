@@ -1,0 +1,20 @@
+User-agent: *
+
+# remova os diretorios
+Disallow: /emails
+Disallow: /templates
+Disallow: /cgi-bin/
+Disallow: /tag/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /trackback/
+Disallow: /feed/
+Disallow: /tags/
+
+# permitir o adsense em qualquer url
+User-agent: Mediapartners-Google*
+Disallow:
+Allow: /*
+
+#Sitemap
+#Sitemap: http://www..com.br/sitemap.xml

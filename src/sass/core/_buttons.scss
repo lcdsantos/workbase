@@ -1,0 +1,134 @@
+/*======================================
+  Buttons
+======================================*/
+
+.bt {
+  @include inline-block;
+  cursor: pointer;
+  height: $button-height;
+  border: none;
+  outline: none;
+  background: $button-background;
+  color: $button-color;
+  padding: 0 $button-padding;
+  border-radius: $button-radius;
+  text-transform: uppercase;
+  font-size: $button-font-size;
+  line-height: $button-height;
+  transition: 0.2s;
+  transform: translateZ(0) scale(1);
+  position: relative;
+}
+
+a.bt:active, button.bt:active {
+  transform: translateZ(0) scale(0.96);
+}
+
+a.bt:hover, button.bt:hover {
+  @if (lightness($button-background) > 50) {
+    background: darken($button-background, 20%);
+  } @else {
+    background: lighten($button-background, 20%);
+  }
+}
+
+.bts-social {
+  font-size: 0;
+  white-space: nowrap;
+  padding-left: 30px;
+
+  a {
+    @include inline-block;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0;
+    background: $color-navy;
+    color: #FFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      fill: #FFF;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+
+    & + a {
+      margin-left: 10px;
+    }
+
+    &:hover {
+      background: darken($color-navy, 5%);
+    }
+  }
+}
+
+/* Hamburger button */
+.bt-menu {
+  position: relative;
+  display: none;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: $hamburger-button-radius;
+  width: $hamburger-button-size;
+  height: $hamburger-button-size;
+  transition: $hamgurger-transition-speed / 2;
+
+  &:hover, &:focus {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+  .hamburguer {
+    width: $hamgurger-bar-width;
+    height: ($hamgurger-bar-height * 3) + ($hamgurger-bar-spacing * 2);
+    transition: $hamgurger-transition-speed;
+
+    &, .bar {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+    }
+
+    .bar {
+      width: $hamgurger-bar-width;
+      height: $hamgurger-bar-height;
+      background: $hamburger-bar-color;
+      transition: $hamgurger-transition-speed / 2;
+      outline: 1px solid transparent;
+    }
+
+    .bar-1 { transform: rotate(0) translate3d(0, -($hamgurger-bar-height * 2), 0); }
+    .bar-3 { transform: rotate(0) translate3d(0, ($hamgurger-bar-height * 2), 0); }
+
+    .menu-open & {
+      transform: rotate(180deg);
+
+      .bar-1 { transform: rotate(45deg) translate3d(0, 0, 0); }
+      .bar-2 { opacity: 0; }
+      .bar-3 { transform: rotate(-45deg) translate3d(0, 0, 0); }
+    }
+  }
+}

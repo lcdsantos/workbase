@@ -1,0 +1,108 @@
+/*======================================
+  Forms
+======================================*/
+
+form {
+  .row + .row {
+    margin-top: 20px;
+  }
+
+  label, .label {
+    margin-bottom: 6px;
+    display: block;
+
+    &.inline {
+      @include inline-block;
+      margin-right: 20px;
+    }
+
+    .obs {
+      font-size: 12px;
+    }
+  }
+
+  .fieldset {
+    margin: 20px 0 0;
+  }
+
+  .legend {
+    margin-bottom: 20px;
+  }
+}
+
+.field {
+  input[type=text],
+  input[type=email],
+  input[type=url],
+  input[type=tel],
+  input[type=number],
+  input[type=color],
+  input[type=password],
+  select,
+  textarea {
+    box-sizing: border-box;
+    background: none;
+    border: 1px solid;
+    border-radius: 2px;
+    width: 100%;
+    padding: 10px;
+    color: $font-color;
+    font-size: 12px;
+    transition: 0.2s;
+
+    &:focus {
+      border-color: #999;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=url],
+  input[type=tel],
+  input[type=number],
+  input[type=color],
+  input[type=password] {
+    height: 40px;
+  }
+
+  select {
+    height: 40px;
+    padding: 10px 6px;
+  }
+
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
+    margin-right: 2px;
+    position: relative;
+    top: 1px;
+    *overflow: hidden;
+  }
+}
+
+.form-controls {
+  margin-top: 20px;
+
+  span {
+    font-size: 12px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .error-form {
+    color: $color-error;
+  }
+
+  .success-form {
+    color: $color-success;
+  }
+}

@@ -1,0 +1,17 @@
+// Config
+@import "core/settings";
+@import "core/utils";
+
+// Vendor
+@import "normalize.css/normalize";
+
+// Defaults
+@import "core/global";
+@import "core/grid";
+@import "core/fonts";
+@import "core/structure";
+@import "core/buttons";
+@import "core/forms";
+
+// Pages
+@import "pages/home";
