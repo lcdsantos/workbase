@@ -169,8 +169,8 @@ gulp.task('watch', ['serve'], function() {
   gulp.watch(['**/*.scss'], { cwd: './src/sass/' }, ['sass']);
 
   /* Watch SVG */
-  gulp.watch(['*.svg'], { cwd: './img/icons/' }, ['svgicons']);
-  gulp.watch(['*.svg'], { cwd: './img/svg/' },   ['svg2png']);
+  gulp.watch(['*.svg'], { cwd: './src/img/icons/' }, ['svgicons']);
+  gulp.watch(['*.svg'], { cwd: './src/img/svg/' },   ['svg2png']);
 });
 
 

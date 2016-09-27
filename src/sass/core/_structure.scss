@@ -20,7 +20,7 @@ header {
     position: relative;
     z-index: 2;
     display: block;
-    width: 122px;
+    width: 60px;
 
     &:hover {
       opacity: 0.8;
@@ -49,7 +49,7 @@ header {
 .main-nav {
   text-align: right;
   font-size: 0;
-  margin-top: 30px;
+  margin-top: 8px;
 
   li {
     @include inline-block(middle);
