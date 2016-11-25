@@ -4,52 +4,52 @@
 
 // Grid
 $grid-container: 1170px;
-$grid-columns  : 12;
-$grid-gutter   : 36px;
+$grid-columns: 12;
+$grid-gutter: 36px;
 
 // Fonts
-$font-main : sans-serif;
-$font-alt  : sans-serif;
-$font-size : 16px;
+$font-main: sans-serif;
+$font-alt: sans-serif;
+$font-size: 16px;
 $font-color: #444;
 
 // Colors
-$color-navy   : #001F3F;
-$color-blue   : #0074D9;
-$color-aqua   : #7FDBFF;
-$color-teal   : #39CCCC;
-$color-olive  : #3D9970;
-$color-green  : #2ECC40;
-$color-lime   : #01FF70;
-$color-yellow : #FFDC00;
-$color-orange : #FF851B;
-$color-red    : #D13F19;
-$color-maroon : #85144B;
-$color-fuchsia: #F012BE;
-$color-purple : #2F192E;
-$color-white  : #FFFFFF;
-$color-silver : #DDDDDD;
-$color-gray   : #AAAAAA;
-$color-black  : #222222;
+$color-navy: #001f3f;
+$color-blue: #0074d9;
+$color-aqua: #7fdbff;
+$color-teal: #39cccc;
+$color-olive: #3d9970;
+$color-green: #2ecc40;
+$color-lime: #01ff70;
+$color-yellow: #ffdc00;
+$color-orange: #ff851b;
+$color-red: #d13f19;
+$color-maroon: #85144b;
+$color-fuchsia: #f012be;
+$color-purple: #2f192e;
+$color-white: #ffffff;
+$color-silver: #dddddd;
+$color-gray: #aaaaaa;
+$color-black: #222222;
 
-$color-error     : $color-red;
-$color-success   : $color-green;
+$color-error: $color-red;
+$color-success: $color-green;
 $color-background: $color-white;
 
 // Defaults
-$button-height    : 40px;
+$button-height: 40px;
 $button-background: $color-navy;
-$button-padding   : 30px;
-$button-radius    : 2px;
-$button-color     : #FFF;
-$button-font-size : $font-size;
+$button-padding: 30px;
+$button-radius: 2px;
+$button-color: #fff;
+$button-font-size: $font-size;
 
-$hamburger-button-size     : 50px;
-$hamburger-button-radius   : 4px;
-$hamburger-bar-color       : $color-navy;
-$hamgurger-bar-width       : 32px;
-$hamgurger-bar-height      : 5px;
-$hamgurger-bar-spacing     : 5px;
+$hamburger-button-size: 50px;
+$hamburger-button-radius: 4px;
+$hamburger-bar-color: $color-navy;
+$hamgurger-bar-width: 32px;
+$hamgurger-bar-height: 5px;
+$hamgurger-bar-spacing: 5px;
 $hamgurger-transition-speed: 0.4s;
 
 // Media query breakpoints

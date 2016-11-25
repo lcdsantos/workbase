@@ -7,9 +7,10 @@ form {
     margin-top: 20px;
   }
 
-  label, .label {
-    margin-bottom: 6px;
+  label,
+  .label {
     display: block;
+    margin-bottom: 6px;
 
     &.inline {
       @include inline-block;
@@ -31,40 +32,40 @@ form {
 }
 
 .field {
-  input[type=text],
-  input[type=email],
-  input[type=url],
-  input[type=tel],
-  input[type=number],
-  input[type=color],
-  input[type=password],
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='tel'],
+  [type='number'],
+  [type='color'],
+  [type='password'],
   select,
   textarea {
-    box-sizing: border-box;
     background: none;
     border: 1px solid;
     border-radius: 2px;
-    width: 100%;
-    padding: 10px;
+    box-sizing: border-box;
     color: $font-color;
     font-size: 12px;
+    padding: 10px;
     transition: 0.2s;
+    width: 100%;
 
     &:focus {
-      border-color: #999;
       background: rgba(255, 255, 255, 0.1);
-      outline: none;
+      border-color: #999;
       box-shadow: none;
+      outline: none;
     }
   }
 
-  input[type=text],
-  input[type=email],
-  input[type=url],
-  input[type=tel],
-  input[type=number],
-  input[type=color],
-  input[type=password] {
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='tel'],
+  [type='number'],
+  [type='color'],
+  [type='password'] {
     height: 40px;
   }
 
@@ -74,16 +75,16 @@ form {
   }
 
   textarea {
-    resize: none;
     overflow: auto;
+    resize: none;
   }
 
-  input[type=checkbox],
-  input[type=radio] {
+  [type='checkbox'],
+  [type='radio'] {
     margin-right: 2px;
+    overflow: hidden;
     position: relative;
     top: 1px;
-    *overflow: hidden;
   }
 }
 

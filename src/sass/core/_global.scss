@@ -7,11 +7,17 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
-html, button, input, select, textarea {
+html,
+button,
+input,
+select,
+textarea {
   color: $font-color;
 }
 
@@ -30,21 +36,27 @@ button {
   cursor: pointer;
 }
 
-a:focus, button:focus,
-a:active, button:active {
+a:focus,
+a:active,
+button:focus,
+button:active {
   outline: none;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
-ol, ul {
+ol,
+ul {
   padding: 0;
   margin: 0;
 }
 
-img, iframe, video {
+img,
+iframe,
+video {
   vertical-align: middle;
 }
 
@@ -55,12 +67,14 @@ img, iframe, video {
   color: transparent;
 }
 
-.cf:before, .cf:after {
+.cf:before,
+.cf:after {
   content: " ";
   display: table;
 }
 
-.clear, .cf:after {
+.clear,
+.cf:after {
   clear: both;
 }
 
@@ -69,7 +83,8 @@ img, iframe, video {
 }
 
 .valign {
-  i, .center {
+  i,
+  .center {
     @include inline-block(middle);
   }
 

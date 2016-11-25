@@ -3,24 +3,24 @@
 ======================================*/
 
 header {
-  background: #EFEFEF;
-  border-bottom: 1px solid #E0E0E0;
+  background: #efefef;
+  border-bottom: 1px solid #e0e0e0;
   margin-bottom: 10px;
   position: relative;
   z-index: 100;
 
   .container {
-    padding-top: 15px;
     padding-bottom: 15px;
+    padding-top: 15px;
   }
 
   .header-logo {
-    float: left;
-    transition: 0.2s;
-    position: relative;
-    z-index: 2;
     display: block;
+    float: left;
+    position: relative;
+    transition: 0.2s;
     width: 60px;
+    z-index: 2;
 
     &:hover {
       opacity: 0.8;
@@ -28,15 +28,15 @@ header {
 
     img {
       display: block;
-      width: 100%;
       height: auto;
+      width: 100%;
     }
   }
 
   @include breakpoint(sm) {
     .container {
-      padding-top: 10px;
       padding-bottom: 10px;
+      padding-top: 10px;
     }
 
     .header-logo {
@@ -47,9 +47,9 @@ header {
 
 /* Menus */
 .main-nav {
-  text-align: right;
   font-size: 0;
   margin-top: 8px;
+  text-align: right;
 
   li {
     @include inline-block(middle);
@@ -69,45 +69,45 @@ header {
   }
 
   @include breakpoint(sm) {
+    margin-top: 0;
     position: relative;
     text-align: right;
-    margin-top: 0;
 
     ul {
-      position: absolute;
-      z-index: 1;
-      top: 100%;
-      right: 0;
-      background: #FFF;
+      background: #fff;
+      border: 1px solid #ddd;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
       margin-top: 5px;
-      border: 1px solid #DDD;
       opacity: 0;
-      visibility: hidden;
+      padding: 20px;
+      position: absolute;
+      right: 0;
+      top: 100%;
       transform: translate3d(0, -20px, 0);
       transition: 0.4s;
+      visibility: hidden;
+      z-index: 1;
 
       .menu-open & {
         opacity: 1;
-        visibility: visible;
         transform: translate3d(0, 0, 0);
+        visibility: visible;
       }
 
       &:before,
       &:after {
-        content: " ";
-        color: #FFF;
-        position: absolute;
-        right: 20px;
-        bottom: 100%;
         border-bottom: 6px solid;
         border-left: 7px solid transparent;
         border-right: 7px solid transparent;
+        bottom: 100%;
+        color: #fff;
+        content: " ";
+        position: absolute;
+        right: 20px;
       }
 
       &:before {
-        color: #DDD;
+        color: #ddd;
       }
 
       &:after {
@@ -137,13 +137,13 @@ header {
 
 /* Rodapé */
 footer {
-  background: #EFEFEF;
-  border-top: 1px solid #E0E0E0;
+  background: #efefef;
+  border-top: 1px solid #e0e0e0;
   margin-top: 20px;
 
   .container {
-    padding-top: 15px;
     padding-bottom: 15px;
+    padding-top: 15px;
 
     .copy {
       text-align: center;

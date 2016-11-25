@@ -16,6 +16,7 @@ gulp.task('svg2png', function() {
   svg
     .pipe($.changed('./assets/img/', { extension: '.png' }))
     .pipe($.svg2png())
+    .pipe($.imagemin())
     .pipe(gulp.dest('./assets/img/'));
 
   svg
@@ -52,6 +53,16 @@ gulp.task('svgicons', function() {
 
 
 /**
+ * Images
+ */
+gulp.task('images', function() {
+  gulp.src(['./src/img/*.{jpg,png,gif}'])
+    .pipe($.imagemin())
+    .pipe(gulp.dest('./assets/img/'));
+});
+
+
+/**
  * Sass
  */
 gulp.task('sass', function() {
@@ -75,6 +86,23 @@ gulp.task('sass:release', function() {
     .pipe($.rename({ suffix: '.min' }))
     .pipe($.csso())
     .pipe(gulp.dest('./assets/css/'));
+});
+
+gulp.task('css', function() {
+  gulp.src(['./src/sass/**/*.scss'])
+    .pipe($.sassLint({
+      options: {
+        formatter: 'stylish',
+        'merge-default-rules': false
+      },
+      rules: {
+        'leading-zero': false,
+        'no-ids': 1,
+        'no-mergeable-selectors': 0
+      },
+    }))
+    .pipe($.sassLint.format())
+    .pipe($.sassLint.failOnError());
 });
 
 
@@ -171,6 +199,9 @@ gulp.task('watch', ['serve'], function() {
   /* Watch SVG */
   gulp.watch(['*.svg'], { cwd: './src/img/icons/' }, ['svgicons']);
   gulp.watch(['*.svg'], { cwd: './src/img/svg/' },   ['svg2png']);
+
+  /* Watch images */
+  gulp.watch(['*.{jpg,png,gif}'], { cwd: './src/img/' }, ['images']);
 });
 
 

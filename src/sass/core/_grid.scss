@@ -25,8 +25,13 @@
   @include make-grid-columns(lg);
 }
 
-.fl { float: left; }
-.fr { float: right; }
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
 
 .center-block {
   margin-left: auto;
