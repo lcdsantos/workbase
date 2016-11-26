@@ -1,33 +1,37 @@
-/*======================================
-  Buttons
-======================================*/
+/**
+ * Buttons
+ */
 
 .bt {
-  @include inline-block;
-  cursor: pointer;
-  height: $button-height;
-  border: none;
-  outline: none;
   background: $button-background;
-  color: $button-color;
-  padding: 0 $button-padding;
   border-radius: $button-radius;
-  text-transform: uppercase;
+  border: none;
+  color: $button-color;
+  cursor: pointer;
+  display: inline-block;
   font-size: $button-font-size;
+  height: $button-height;
   line-height: $button-height;
-  transition: 0.2s;
-  transform: translateZ(0) scale(1);
+  outline: none;
+  padding: 0 $button-padding;
   position: relative;
+  text-transform: uppercase;
+  transform: translateZ(0) scale(1);
+  transition: 0.2s;
 }
 
-a.bt:active, button.bt:active {
+a.bt:active,
+button.bt:active {
   transform: translateZ(0) scale(0.96);
 }
 
-a.bt:hover, button.bt:hover {
+a.bt:hover,
+button.bt:hover {
   @if (lightness($button-background) > 50) {
     background: darken($button-background, 20%);
-  } @else {
+  }
+
+  @else {
     background: lighten($button-background, 20%);
   }
 }
@@ -38,12 +42,12 @@ a.bt:hover, button.bt:hover {
   padding-left: 30px;
 
   a {
-    @include inline-block;
+    display: inline-block;
     cursor: pointer;
     font-size: 16px;
     margin: 0;
     background: $color-navy;
-    color: #FFF;
+    color: #fff;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -53,7 +57,7 @@ a.bt:hover, button.bt:hover {
     .icon {
       width: 16px;
       height: 16px;
-      fill: #FFF;
+      fill: #fff;
       position: absolute;
       top: 0;
       right: 0;
@@ -62,7 +66,7 @@ a.bt:hover, button.bt:hover {
       margin: auto;
     }
 
-    & + a {
+    + a {
       margin-left: 10px;
     }
 
@@ -85,7 +89,8 @@ a.bt:hover, button.bt:hover {
   height: $hamburger-button-size;
   transition: $hamgurger-transition-speed / 2;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   }
 
@@ -93,7 +98,8 @@ a.bt:hover, button.bt:hover {
     transform: scale(0.9);
   }
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     outline: none;
   }
 
@@ -102,7 +108,8 @@ a.bt:hover, button.bt:hover {
     height: ($hamgurger-bar-height * 3) + ($hamgurger-bar-spacing * 2);
     transition: $hamgurger-transition-speed;
 
-    &, .bar {
+    &,
+    .bar {
       display: block;
       position: absolute;
       top: 0;

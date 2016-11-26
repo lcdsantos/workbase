@@ -1,6 +1,6 @@
-/*======================================
-  Settings
-======================================*/
+/**
+ * Settings
+ */
 
 // Grid
 $grid-container: 1170px;
@@ -27,10 +27,10 @@ $color-red: #d13f19;
 $color-maroon: #85144b;
 $color-fuchsia: #f012be;
 $color-purple: #2f192e;
-$color-white: #ffffff;
-$color-silver: #dddddd;
-$color-gray: #aaaaaa;
-$color-black: #222222;
+$color-white: #fff;
+$color-silver: #ddd;
+$color-gray: #aaa;
+$color-black: #222;
 
 $color-error: $color-red;
 $color-success: $color-green;

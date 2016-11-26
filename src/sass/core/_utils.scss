@@ -1,6 +1,6 @@
-/*======================================
-  Sass Mixins and Functions
-======================================*/
+/**
+ * Sass Mixins and Functions
+ */
 
 // Calculate em from font-size
 @function em($pixels, $context: $font-size) {
@@ -23,14 +23,6 @@
 // Shortcut for calc-percent()
 @function cp($target, $container) {
   @return calc-percent($target, $container);
-}
-
-// Mixin for cross-browser inline-block
-@mixin inline-block($align: 'top') {
-  display: inline-block;
-  vertical-align: #{$align};
-  zoom: 1;
-  *display: inline;
 }
 
 // Function to remove unit from number

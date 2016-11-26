@@ -1,6 +1,6 @@
-/*======================================
-  Global styles
-======================================*/
+/**
+ * Global styles
+ */
 
 html {
   background: $color-background;
@@ -8,8 +8,8 @@ html {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -67,14 +67,14 @@ video {
   color: transparent;
 }
 
-.cf:before,
-.cf:after {
+.cf::before,
+.cf::after {
   content: " ";
   display: table;
 }
 
 .clear,
-.cf:after {
+.cf::after {
   clear: both;
 }
 
@@ -85,7 +85,8 @@ video {
 .valign {
   i,
   .center {
-    @include inline-block(middle);
+    display: inline-block;
+    vertical-align: middle;
   }
 
   i {

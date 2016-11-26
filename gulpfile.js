@@ -80,7 +80,7 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('sass:release', function() {
+gulp.task('sass:release', ['sass'], function() {
   return gulp.src(['./assets/css/style.css'])
     .pipe($.autoprefixer(['last 2 versions', 'ie 8', 'ie 9', '> 1%']))
     .pipe($.rename({ suffix: '.min' }))
@@ -88,21 +88,14 @@ gulp.task('sass:release', function() {
     .pipe(gulp.dest('./assets/css/'));
 });
 
-gulp.task('css', function() {
-  gulp.src(['./src/sass/**/*.scss'])
-    .pipe($.sassLint({
-      options: {
-        formatter: 'stylish',
-        'merge-default-rules': false
-      },
-      rules: {
-        'leading-zero': false,
-        'no-ids': 1,
-        'no-mergeable-selectors': 0
-      },
-    }))
-    .pipe($.sassLint.format())
-    .pipe($.sassLint.failOnError());
+gulp.task('lint-css', function() {
+  return gulp.src(['./src/sass/**/*.scss'])
+    .pipe($.stylelint({
+      reporters: [{
+        formatter: 'string',
+        console: true
+      }]
+    }));
 });
 
 
@@ -194,7 +187,7 @@ gulp.task('watch', ['serve'], function() {
   gulp.watch(['**/*.ejs'], { cwd: './src/ejs/' }, ['template']);
 
   /* Watch styles */
-  gulp.watch(['**/*.scss'], { cwd: './src/sass/' }, ['sass']);
+  gulp.watch(['**/*.scss'], { cwd: './src/sass/' }, ['sass', 'lint-css']);
 
   /* Watch SVG */
   gulp.watch(['*.svg'], { cwd: './src/img/icons/' }, ['svgicons']);

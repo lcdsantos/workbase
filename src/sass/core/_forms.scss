@@ -1,6 +1,6 @@
-/*======================================
-  Forms
-======================================*/
+/**
+ * Forms
+ */
 
 form {
   .row + .row {
@@ -13,7 +13,7 @@ form {
     margin-bottom: 6px;
 
     &.inline {
-      @include inline-block;
+      display: inline-block;
       margin-right: 20px;
     }
 
