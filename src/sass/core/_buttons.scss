@@ -18,21 +18,19 @@
   text-transform: uppercase;
   transform: translateZ(0) scale(1);
   transition: 0.2s;
-}
 
-a.bt:active,
-button.bt:active {
-  transform: translateZ(0) scale(0.96);
-}
-
-a.bt:hover,
-button.bt:hover {
-  @if (lightness($button-background) > 50) {
-    background: darken($button-background, 20%);
+  &:active {
+    transform: translateZ(0) scale(0.96);
   }
 
-  @else {
-    background: lighten($button-background, 20%);
+  &:hover {
+    @if (lightness($button-background) > 50) {
+      background: darken($button-background, 20%);
+    }
+
+    @else {
+      background: lighten($button-background, 20%);
+    }
   }
 }
 

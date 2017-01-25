@@ -3,7 +3,7 @@
  */
 
 /* Header */
-header {
+.main-header {
   background: #efefef;
   border-bottom: 1px solid #e0e0e0;
   margin-bottom: 10px;
@@ -75,7 +75,7 @@ header {
     position: relative;
     text-align: right;
 
-    ul {
+    .main-nav-inner {
       background: #fff;
       border: 1px solid #ddd;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -138,7 +138,7 @@ header {
 }
 
 /* Footer */
-footer {
+.main-footer {
   background: #efefef;
   border-top: 1px solid #e0e0e0;
   margin-top: 20px;
@@ -146,13 +146,13 @@ footer {
   .container {
     padding-bottom: 15px;
     padding-top: 15px;
+  }
 
-    .copy {
-      text-align: center;
+  .copy {
+    text-align: center;
 
-      a:hover {
-        color: #777;
-      }
+    a:hover {
+      color: #777;
     }
   }
 }
