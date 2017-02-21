@@ -39,11 +39,12 @@ form {
   [type='number'],
   [type='color'],
   [type='password'],
+  [type='search'],
   select,
   textarea {
     background: none;
-    border: 1px solid;
     border-radius: 2px;
+    border: 1px solid;
     box-sizing: border-box;
     color: $font-color;
     font-size: 12px;
@@ -65,7 +66,8 @@ form {
   [type='tel'],
   [type='number'],
   [type='color'],
-  [type='password'] {
+  [type='password'],
+  [type='search'] {
     height: 40px;
   }
 
@@ -75,8 +77,10 @@ form {
   }
 
   textarea {
+    margin: 0;
     overflow: auto;
     resize: none;
+    vertical-align: bottom;
   }
 
   [type='checkbox'],
