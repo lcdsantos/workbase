@@ -1,14 +1,11 @@
 import './vendor/plugins.js';
 
 (($) => {
-  'use strict';
+    'use strict';
 
-  $(() => {
+    $(() => {
 
-    $('.bt-menu').on('click', (e) => {
-      e.preventDefault();
-      $('body').toggleClass('menu-open');
+        // Functions
+
     });
-
-  });
 })(jQuery);

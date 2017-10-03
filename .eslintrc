@@ -79,7 +79,7 @@
     "id-match": "error",
     "indent": [
       "error",
-      2
+      4
     ],
     "init-declarations": "error",
     "jsx-quotes": "error",
@@ -99,7 +99,7 @@
     "max-depth": "error",
     "max-len": "off",
     "max-nested-callbacks": "error",
-    "max-params": "error",
+    "max-params": ["error", 4],
     "max-statements": "off",
     "new-cap": "error",
     "new-parens": "error",

@@ -4,134 +4,59 @@
 
 // Calculate em from font-size
 @function em($pixels, $context: $font-size) {
-  @if (unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
+    @if (unitless($pixels)) {
+        $pixels: $pixels * 1px;
+    }
 
-  @if (unitless($context)) {
-    $context: $context * 1px;
-  }
+    @if (unitless($context)) {
+        $context: $context * 1px;
+    }
 
-  @return ($pixels / $context) * 1em;
+    @return ($pixels / $context) * 1em;
 }
 
 // Calculate % from a value
 @function calc-percent($target, $container) {
-  @return ($target / $container) * 100%;
+    @return ($target / $container) * 100%;
 }
 
 // Shortcut for calc-percent()
 @function cp($target, $container) {
-  @return calc-percent($target, $container);
+    @return calc-percent($target, $container);
 }
 
 // Function to remove unit from number
 @function strip-units($number) {
-  @return $number / ($number * 0 + 1);
-}
-
-// Function column size based on the grid settings
-@function col-size($i) {
-  $col-width: ($grid-container / $grid-columns) * $i;
-  @return percentage( strip-units( ($col-width - $grid-gutter) / $grid-container ) );
-}
-
-@function col-size-wider($i) {
-  $col-width: ($grid-container / $grid-columns) * $i;
-  @return percentage( strip-units( $col-width / $grid-container ) );
-}
-
-// Mixin to create a grid container
-@mixin container {
-  max-width: $grid-container;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: ($grid-gutter / 2) / $grid-container * 100%;
-  padding-right: ($grid-gutter / 2) / $grid-container * 100%;
-}
-
-// Mixin to create a grid row
-@mixin row {
-  margin-left: ($grid-gutter / 2) / $grid-container * -100%;
-  margin-right: ($grid-gutter / 2) / $grid-container * -100%;
-}
-
-// Mixin to create a grid column
-@mixin col {
-  position: relative;
-  min-height: 1px;
-  margin-left: ($grid-gutter / 2) / $grid-container * 100%;
-  margin-right: ($grid-gutter / 2) / $grid-container * 100%;
-  float: left;
-  width: col-size($grid-columns);
-}
-
-@mixin make-grid-columns($prefix: 'sm') {
-  $half-gutter-width: ($grid-gutter / $grid-container * 50%);
-
-  .#{$prefix}-push-0,
-  .#{$prefix}-pull-0 {
-    left: 0;
-  }
-
-  .#{$prefix}-prefix-0 {
-    margin-left: $half-gutter-width;
-  }
-
-  .#{$prefix}-suffix-0 {
-    margin-right: $half-gutter-width;
-  }
-
-  @for $index from 1 through $grid-columns {
-    .#{$prefix}-#{$index} {
-      width: col-size($index);
-    }
-
-    .#{$prefix}-push-#{$index} {
-      left: col-size-wider($index);
-    }
-
-    .#{$prefix}-pull-#{$index} {
-      left: col-size-wider(-$index);
-    }
-
-    .#{$prefix}-prefix-#{$index} {
-      margin-left: col-size-wider($index) + $half-gutter-width;
-    }
-
-    .#{$prefix}-suffix-#{$index} {
-      margin-right: col-size-wider($index) + $half-gutter-width;
-    }
-  }
+    @return $number / ($number * 0 + 1);
 }
 
 // Mixin for media queries
 @mixin breakpoint($breakpoint) {
-  @if map-get($breakpoints, $breakpoint) {
-    @media (max-width: em(map-get($breakpoints, $breakpoint))) {
-      @content;
+    @if map-get($breakpoints, $breakpoint) {
+        @media (max-width: em(map-get($breakpoints, $breakpoint))) {
+            @content;
+        }
     }
-  }
 
-  @else {
-    @media (max-width: em($breakpoint*1px)) {
-      @content;
+    @else {
+        @media (max-width: em($breakpoint*1px)) {
+            @content;
+        }
     }
-  }
 }
 
 @mixin breakpoint-min($breakpoint) {
-  @if map-get($breakpoints, $breakpoint) {
-    @media (min-width: em(map-get($breakpoints, $breakpoint))) {
-      @content;
+    @if map-get($breakpoints, $breakpoint) {
+        @media (min-width: em(map-get($breakpoints, $breakpoint))) {
+            @content;
+        }
     }
-  }
 
-  @else {
-    @media (min-width: em($breakpoint*1px)) {
-      @content;
+    @else {
+        @media (min-width: em($breakpoint*1px)) {
+            @content;
+        }
     }
-  }
 }
 
 /// Helper function to easily use an SVG inline in CSS
@@ -145,23 +70,23 @@
 /// @param {String} $svg - SVG image to encode
 /// @return {String} - Encoded SVG data uri
 @function svg-uri($svg) {
-  $encoded: '';
-  $slice: 2000;
-  $index: 0;
-  $loops: ceil(str-length($svg) / $slice);
+    $encoded: '';
+    $slice: 2000;
+    $index: 0;
+    $loops: ceil(str-length($svg) / $slice);
 
-  @for $i from 1 through $loops {
-    $chunk: str-slice($svg, $index, $index + $slice - 1);
-    $chunk: str-replace($chunk, '"', "'");
-    $chunk: str-replace($chunk, '<', '%3C');
-    $chunk: str-replace($chunk, '>', '%3E');
-    $chunk: str-replace($chunk, '&', '%26');
-    $chunk: str-replace($chunk, '#', '%23');
-    $encoded: #{$encoded}#{$chunk};
-    $index: $index + $slice;
-  }
+    @for $i from 1 through $loops {
+        $chunk: str-slice($svg, $index, $index + $slice - 1);
+        $chunk: str-replace($chunk, '"', "'");
+        $chunk: str-replace($chunk, '<', '%3C');
+        $chunk: str-replace($chunk, '>', '%3E');
+        $chunk: str-replace($chunk, '&', '%26');
+        $chunk: str-replace($chunk, '#', '%23');
+        $encoded: #{$encoded}#{$chunk};
+        $index: $index + $slice;
+    }
 
-  @return url("data:image/svg+xml;charset=utf8,#{$encoded}");
+    @return url("data:image/svg+xml;charset=utf8,#{$encoded}");
 }
 
 /// Replace `$search` with `$replace` in `$string`
@@ -172,11 +97,11 @@
 /// @param {String} $replace ('') - New value
 /// @return {String} - Updated string
 @function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
+    $index: str-index($string, $search);
 
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
 
-  @return $string;
+    @return $string;
 }
