@@ -1,11 +1,7 @@
-import './vendor/plugins.js';
+import 'bootstrap-sass';
 
-(($) => {
-    'use strict';
-
+($ => {
     $(() => {
-
         // Functions
-
     });
 })(jQuery);
