@@ -3,10 +3,9 @@
  */
 
 // Fonts
-$font-main: sans-serif;
-$font-alt: sans-serif;
-$font-size: 16px;
-$font-color: #444;
+$font-family-sans-serif: Arial, Helvetica, sans-serif;
+$font-family-serif: Georgia, Times, "Times New Roman", serif;
+$font-size-base: 16px;
 
 // Colors
 $color-navy: #001f3f;
@@ -30,6 +29,8 @@ $color-black: #222;
 $color-error: $color-red;
 $color-success: $color-green;
 $color-background: $color-white;
+$text-color: $color-black;
+$link-color: $color-blue;
 
 // Media query breakpoints
 $breakpoints: (
