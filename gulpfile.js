@@ -85,6 +85,7 @@ gulp.task('svgicons', function() {
  */
 gulp.task('images', function() {
     gulp.src(paths.images.src)
+        .pipe($.changed(paths.images.dest))
         .pipe($.imagemin())
         .pipe(gulp.dest(paths.images.dest));
 });
@@ -160,6 +161,8 @@ gulp.task('serve', function() {
         open: false,
         ghostMode: false,
         online: false,
+        notify: false,
+        scrollRestoreTechnique: 'cookie',
         files: [
             '*.html',
             'assets/img/*.{jpg,png,svg,gif,webp,ico}'
@@ -176,7 +179,7 @@ gulp.task('serve', function() {
 /**
  * Build
  */
-gulp.task('build', ['template', 'sass', 'scripts', 'svg2png'], function() {
+gulp.task('build', ['template', 'sass', 'scripts', 'svgicons', 'svg2png', 'images'], function() {
     $.util.log($.util.colors.green('Build is finished'));
 });
 
