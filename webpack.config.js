@@ -3,10 +3,13 @@ var path = require('path');
 
 module.exports = function(env) {
     return {
-        entry: './src/js/main.js',
+        entry: {
+            main: './src/js/main.js',
+            vendor: ['bootstrap-sass']
+        },
         output: {
-            path: path.join(__dirname, 'assets/js'),
-            filename: 'bundle.js'
+            path: path.resolve(__dirname, 'assets/js'),
+            filename: '[name].js'
         },
         externals: {
             // require("jquery") is external and available
@@ -16,6 +19,9 @@ module.exports = function(env) {
         cache: true,
         devtool: (env === 'production') ? false : 'eval',
         plugins: [
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'vendor'
+            }),
             new webpack.ProvidePlugin({
                 '$': 'jquery',
                 'jQuery': 'jquery',
