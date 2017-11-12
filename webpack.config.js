@@ -41,7 +41,12 @@ module.exports = function(env) {
             }, {
                 test: /\.js$/,
                 exclude: /node_modules|bower_components|vendor/,
-                loader: 'eslint-loader',
+                use: {
+                    loader: 'eslint-loader',
+                    options: {
+                        fix: true
+                    }
+                },
                 enforce: 'pre'
             }]
         }
