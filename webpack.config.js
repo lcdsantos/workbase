@@ -4,8 +4,7 @@ var path = require('path');
 module.exports = function(env) {
     return {
         entry: {
-            main: './src/js/main.js',
-            vendor: ['bootstrap-sass']
+            main: 'src/js/main.js'
         },
         output: {
             path: path.resolve(__dirname, 'assets/js'),
@@ -20,7 +19,8 @@ module.exports = function(env) {
         devtool: (env === 'production') ? false : 'eval',
         plugins: [
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor'
+                name: 'vendor',
+                minChunks: module => /node_modules/.test(module.resource)
             }),
             new webpack.ProvidePlugin({
                 '$': 'jquery',
