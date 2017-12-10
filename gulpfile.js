@@ -4,8 +4,6 @@ var tildeImporter = require('node-sass-tilde-importer');
 var browserSync   = require('browser-sync').create();
 
 var webpack       = require('webpack');
-var webpackConfig = require('./webpack.config.js')();
-var bundler       = webpack(webpackConfig);
 
 var isProduction  = !!$.util.env.production;
 
@@ -112,6 +110,9 @@ gulp.task('sass', function() {
  * JavaScript
  */
 gulp.task('scripts', function(cb) {
+    var webpackConfig = require('./webpack.config.js')();
+    var bundler       = webpack(webpackConfig);
+
     bundler.watch(200, function(err, stats) {
         if (err) {
             throw new $.util.PluginError('webpack', err);
