@@ -7,7 +7,7 @@ module.exports = function(env) {
             main: './src/js/main.js'
         },
         output: {
-            path: path.resolve(__dirname, 'assets/js'),
+            path: path.resolve(__dirname, 'dist/assets/js'),
             filename: '[name].js'
         },
         externals: {

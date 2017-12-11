@@ -10,23 +10,23 @@ var isProduction  = !!$.util.env.production;
 var paths = {
     svg: {
         src: 'src/img/svg/*.svg',
-        dest: 'assets/img'
+        dest: 'dist/assets/img'
     },
     icons: {
         src: 'src/img/icons/*.svg',
-        dest: 'assets/img'
+        dest: 'dist/assets/img'
     },
     images: {
         src: 'src/img/*.{jpg,png,gif}',
-        dest: 'assets/img'
+        dest: 'dist/assets/img'
     },
     sass: {
         src: 'src/sass/style.scss',
-        dest: 'assets/css'
+        dest: 'dist/assets/css'
     },
     templates: {
         src: 'src/templates/*.ejs',
-        dest: ''
+        dest: 'dist'
     }
 };
 
@@ -131,7 +131,7 @@ gulp.task('scripts', function(cb) {
  * Templates
  */
 gulp.task('template', function() {
-    return gulp.src([paths.templates.src])
+    return gulp.src(paths.templates.src)
         .pipe($.ejs({}, {}, { ext: '.html' }))
         .pipe(gulp.dest(paths.templates.dest));
 });
@@ -141,23 +141,6 @@ gulp.task('template', function() {
  * Live preview
  */
 gulp.task('serve', function() {
-    var ejsMiddleware = function(req, res, next) {
-        var parsed = require('url').parse(req.url);
-        if (parsed.pathname.match(/\.html$/)) {
-            var ejs = require('ejs');
-            var ejsFile = 'src/templates/' + parsed.pathname.replace('.html', '.ejs');
-            return ejs.renderFile(ejsFile, {}, {
-                query: parsed.query,
-                filename: ejsFile
-            }, function(err, contents) {
-                if (!err) {
-                    res.end(contents);
-                }
-            });
-        }
-        next();
-    };
-
     browserSync.init({
         open: false,
         ghostMode: false,
@@ -165,13 +148,12 @@ gulp.task('serve', function() {
         notify: false,
         scrollRestoreTechnique: 'cookie',
         files: [
-            '*.html',
+            paths.templates.dest + '/*.html',
             'assets/img/*.{jpg,png,svg,gif,webp,ico}'
         ],
         server: {
-            baseDir: '',
-            directory: true,
-            middleware: [ejsMiddleware]
+            baseDir: paths.templates.dest,
+            directory: true
         }
     });
 });

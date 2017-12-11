@@ -6,7 +6,6 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
-    "ejs": "^2.5.7",
     "eslint": "^4.13.0",
     "eslint-loader": "^1.9.0",
     "gulp": "^3.9.1",
