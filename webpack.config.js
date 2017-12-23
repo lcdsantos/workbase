@@ -1,13 +1,14 @@
 var webpack = require('webpack');
 var path = require('path');
+var noop = function() { /* */ };
 
-module.exports = function(env) {
+module.exports = function(env, paths) {
     return {
         entry: {
-            main: './src/js/main.js'
+            main: path.resolve(paths.js.src)
         },
         output: {
-            path: path.resolve(__dirname, 'dist/assets/js'),
+            path: path.resolve(__dirname, paths.js.dest),
             filename: '[name].js'
         },
         externals: {
@@ -22,11 +23,16 @@ module.exports = function(env) {
                 name: 'vendor',
                 minChunks: module => /node_modules/.test(module.resource)
             }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'manifest'
+            }),
             new webpack.ProvidePlugin({
                 '$': 'jquery',
                 'jQuery': 'jquery',
                 'window.jQuery': 'jquery'
-            })
+            }),
+            (env === 'production') ? new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }) : noop,
+            (env === 'production') ? new webpack.optimize.UglifyJsPlugin() : noop
         ],
         module: {
             rules: [{

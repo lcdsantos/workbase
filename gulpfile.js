@@ -6,6 +6,7 @@ var browserSync   = require('browser-sync').create();
 var webpack       = require('webpack');
 
 var isProduction  = !!$.util.env.production;
+var isWatching    = false;
 
 var paths = {
     svg: {
@@ -24,6 +25,10 @@ var paths = {
         src: 'src/sass/style.scss',
         dest: 'dist/assets/css'
     },
+    js: {
+        src: 'src/js/main.js',
+        dest: 'dist/assets/js'
+    },
     templates: {
         src: 'src/templates/*.ejs',
         dest: 'dist'
@@ -34,21 +39,11 @@ var paths = {
 /**
  * SVG
  */
-gulp.task('svg2png', function() {
-    var svg = gulp.src(paths.svg.src);
-
-    svg
-        .pipe($.changed(paths.svg.dest, { extension: '.png' }))
-        .pipe($.svg2png())
-        .pipe($.imagemin())
-        .pipe(gulp.dest(paths.svg.dest));
-
-    svg
+gulp.task('svgmin', function() {
+    return gulp.src(paths.svg.src)
         .pipe($.changed(paths.svg.dest))
         .pipe($.imagemin())
         .pipe(gulp.dest(paths.svg.dest));
-
-    return svg;
 });
 
 
@@ -110,18 +105,28 @@ gulp.task('sass', function() {
  * JavaScript
  */
 gulp.task('scripts', function(cb) {
-    var webpackConfig = require('./webpack.config.js')();
+    var webpackConfig = require('./webpack.config.js')(isProduction ? 'production' : false, paths);
     var bundler       = webpack(webpackConfig);
 
-    bundler.watch(200, function(err, stats) {
-        if (err) {
-            throw new $.util.PluginError('webpack', err);
-        }
+    if (!isWatching || isProduction) {
+        bundler.run(function(err, stats) {
+            if (err) {
+                throw new $.util.PluginError('webpack', err);
+            }
 
-        $.util.log('[webpack]', stats.toString('minimal'));
+            $.util.log('[webpack]', stats.toString('minimal'));
+        });
+    } else {
+        bundler.watch(200, function(err, stats) {
+            if (err) {
+                throw new $.util.PluginError('webpack', err);
+            }
 
-        browserSync.reload(webpackConfig.output.filename);
-    });
+            $.util.log('[webpack]', stats.toString('minimal'));
+
+            browserSync.reload(webpackConfig.output.filename);
+        });
+    }
 
     return cb();
 });
@@ -136,6 +141,34 @@ gulp.task('template', function() {
         .pipe(gulp.dest(paths.templates.dest));
 });
 
+gulp.task('rev-template', ['rev'], function() {
+    var manifest = gulp.src(paths.templates.dest + '/rev-manifest.json');
+
+    return gulp.src(paths.templates.dest + '/*.html')
+        .pipe($.revReplace({ manifest: manifest }))
+        .pipe(gulp.dest(paths.templates.dest));
+});
+
+
+/**
+ * Clean assets
+ */
+gulp.task('clean-assets', function() {
+    return gulp.src([paths.sass.dest, paths.js.dest], { read: false })
+        .pipe($.clean());
+});
+
+/**
+ * Asset revision
+ */
+gulp.task('rev', ['clean-assets', 'sass', 'scripts'], function() {
+    return gulp.src([paths.sass.dest + '/*.css', paths.js.dest + '/*.js'], { base: paths.templates.dest })
+        .pipe($.rev())
+        .pipe($.revDeleteOriginal())
+        .pipe(gulp.dest(paths.templates.dest))
+        .pipe($.rev.manifest())
+        .pipe(gulp.dest(paths.templates.dest));
+});
 
 /**
  * Live preview
@@ -149,21 +182,10 @@ gulp.task('serve', function() {
         scrollRestoreTechnique: 'cookie',
         files: [
             paths.templates.dest + '/*.html',
-            'assets/img/*.{jpg,png,svg,gif,webp,ico}'
+            paths.images.dest + '/*.{jpg,png,svg,gif,webp,ico}'
         ],
-        server: {
-            baseDir: paths.templates.dest,
-            directory: true
-        }
+        server: paths.templates.dest
     });
-});
-
-
-/**
- * Build
- */
-gulp.task('build', ['template', 'sass', 'scripts', 'svgicons', 'svg2png', 'images'], function() {
-    $.util.log($.util.colors.green('Build is finished'));
 });
 
 
@@ -171,22 +193,30 @@ gulp.task('build', ['template', 'sass', 'scripts', 'svgicons', 'svg2png', 'image
  * Watch files
  */
 gulp.task('watch', ['serve'], function() {
-    /* Watch HTML */
+    /* HTML */
     gulp.watch(['**/*.ejs'], { cwd: 'src/templates' }, ['template']);
 
-    /* Watch styles */
+    /* Styles */
     gulp.watch(['**/*.scss'], { cwd: 'src/sass' }, ['sass']);
 
-    /* Watch SVG */
+    /* SVG */
     gulp.watch(['*.svg'], { cwd: 'src/img/icons' }, ['svgicons']);
-    gulp.watch(['*.svg'], { cwd: 'src/img/svg' },   ['svg2png']);
+    gulp.watch(['*.svg'], { cwd: 'src/img/svg' },   ['svgmin']);
 
-    /* Watch images */
+    /* Images */
     gulp.watch(['*.{jpg,png,gif}'], { cwd: 'src/img' }, ['images']);
+
+    isWatching = true;
 });
 
 
 /**
- * Default task
+ * Default tasks
  */
-gulp.task('default', ['watch', 'build']);
+gulp.task('default', ['watch', 'sass', 'scripts', 'template', 'svgicons', 'svgmin', 'images'], function() {
+    $.util.log($.util.colors.green('Watching for changes...'));
+});
+
+gulp.task('build', ['template', 'svgicons', 'svgmin', 'images', 'rev-template'], function() {
+    $.util.log($.util.colors.green('Build is finished'));
+});
