@@ -2,13 +2,11 @@ var webpack = require('webpack');
 var path = require('path');
 var noop = function() { /* */ };
 
-module.exports = function(env, paths) {
+module.exports = function(env) {
     return {
-        entry: {
-            main: path.resolve(paths.js.src)
-        },
+        entry: path.resolve('src/js/main.js'),
         output: {
-            path: path.resolve(__dirname, paths.js.dest),
+            path: path.resolve(__dirname, 'dist/assets/js'),
             filename: '[name].js'
         },
         externals: {
@@ -16,6 +14,7 @@ module.exports = function(env, paths) {
             // on the global var jQuery
             'jquery': 'jQuery'
         },
+        watch: (env !== 'production'),
         cache: true,
         devtool: (env === 'production') ? false : 'eval',
         plugins: [

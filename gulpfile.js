@@ -2,11 +2,10 @@ var gulp          = require('gulp');
 var $             = require('gulp-load-plugins')();
 var tildeImporter = require('node-sass-tilde-importer');
 var browserSync   = require('browser-sync').create();
+var webpack       = require('webpack-stream');
 
-var webpack       = require('webpack');
-
-var isProduction  = !!$.util.env.production;
-var isWatching    = false;
+var isProduction      = !!$.util.env.production;
+var prefixBrowserlist = ['last 2 versions', 'ie 8', 'ie 9', '> 1%'];
 
 var paths = {
     svg: {
@@ -93,7 +92,7 @@ gulp.task('sass', function() {
         .pipe($.sass({
             importer: tildeImporter
         }).on('error', $.sass.logError))
-        .pipe(isProduction ? $.autoprefixer(['last 2 versions', 'ie 8', 'ie 9', '> 1%']) : $.util.noop())
+        .pipe(isProduction ? $.autoprefixer(prefixBrowserlist) : $.util.noop())
         .pipe(isProduction ? $.csso() : $.util.noop())
         .pipe(isProduction ? $.util.noop() : $.sourcemaps.write(''))
         .pipe(gulp.dest(paths.sass.dest))
@@ -104,20 +103,11 @@ gulp.task('sass', function() {
 /**
  * JavaScript
  */
-gulp.task('scripts', function(cb) {
-    var webpackConfig = require('./webpack.config.js')(isProduction ? 'production' : false, paths);
-    var bundler       = webpack(webpackConfig);
+gulp.task('scripts', function() {
+    var webpackConfig = require('./webpack.config.js')(isProduction ? 'production' : false);
 
-    if (!isWatching || isProduction) {
-        bundler.run(function(err, stats) {
-            if (err) {
-                throw new $.util.PluginError('webpack', err);
-            }
-
-            $.util.log('[webpack]', stats.toString('minimal'));
-        });
-    } else {
-        bundler.watch(200, function(err, stats) {
+    return gulp.src(paths.js.src)
+        .pipe(webpack(webpackConfig, null, function(err, stats) {
             if (err) {
                 throw new $.util.PluginError('webpack', err);
             }
@@ -125,10 +115,8 @@ gulp.task('scripts', function(cb) {
             $.util.log('[webpack]', stats.toString('minimal'));
 
             browserSync.reload(webpackConfig.output.filename);
-        });
-    }
-
-    return cb();
+        }))
+        .pipe(gulp.dest(paths.js.dest));
 });
 
 
@@ -205,8 +193,6 @@ gulp.task('watch', ['serve'], function() {
 
     /* Images */
     gulp.watch(['*.{jpg,png,gif}'], { cwd: 'src/img' }, ['images']);
-
-    isWatching = true;
 });
 
 
