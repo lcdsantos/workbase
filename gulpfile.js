@@ -31,6 +31,9 @@ var paths = {
     templates: {
         src: 'src/templates/*.ejs',
         dest: 'dist'
+    },
+    rev: {
+        dest: 'dist/assets'
     }
 };
 
@@ -130,7 +133,7 @@ gulp.task('template', function() {
 });
 
 gulp.task('rev-template', ['rev'], function() {
-    var manifest = gulp.src(paths.templates.dest + '/rev-manifest.json');
+    var manifest = gulp.src(paths.rev.dest + '/rev-manifest.json');
 
     return gulp.src(paths.templates.dest + '/*.html')
         .pipe($.revReplace({ manifest: manifest }))
@@ -142,7 +145,7 @@ gulp.task('rev-template', ['rev'], function() {
  * Clean assets
  */
 gulp.task('clean-assets', function() {
-    return gulp.src([paths.sass.dest, paths.js.dest], { read: false })
+    return gulp.src([paths.sass.dest, paths.js.dest, paths.rev.dest + '/rev-manifest.json'], { read: false })
         .pipe($.clean());
 });
 
@@ -150,12 +153,12 @@ gulp.task('clean-assets', function() {
  * Asset revision
  */
 gulp.task('rev', ['clean-assets', 'sass', 'scripts'], function() {
-    return gulp.src([paths.sass.dest + '/*.css', paths.js.dest + '/*.js'], { base: paths.templates.dest })
+    return gulp.src([paths.sass.dest + '/*.css', paths.js.dest + '/*.js'], { base: paths.rev.dest })
         .pipe($.rev())
         .pipe($.revDeleteOriginal())
-        .pipe(gulp.dest(paths.templates.dest))
+        .pipe(gulp.dest(paths.rev.dest))
         .pipe($.rev.manifest())
-        .pipe(gulp.dest(paths.templates.dest));
+        .pipe(gulp.dest(paths.rev.dest));
 });
 
 /**
@@ -192,7 +195,7 @@ gulp.task('watch', ['serve'], function() {
     gulp.watch(['*.svg'], { cwd: 'src/img/svg' },   ['svgmin']);
 
     /* Images */
-    gulp.watch(['*.{jpg,png,gif}'], { cwd: 'src/img' }, ['images']);
+    gulp.watch(['*.jpg', '*.png', '*.gif'], { cwd: 'src/img' }, ['images']);
 });
 
 
