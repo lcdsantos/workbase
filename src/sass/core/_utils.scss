@@ -36,9 +36,7 @@
         @media (max-width: em(map-get($breakpoints, $breakpoint), $font-size-root)) {
             @content;
         }
-    }
-
-    @else {
+    } @else {
         @media (max-width: em($breakpoint*1px, $font-size-root)) {
             @content;
         }
@@ -50,9 +48,7 @@
         @media (min-width: em(map-get($breakpoints, $breakpoint), $font-size-root)) {
             @content;
         }
-    }
-
-    @else {
+    } @else {
         @media (min-width: em($breakpoint*1px, $font-size-root)) {
             @content;
         }
@@ -61,28 +57,29 @@
 
 //
 //  Function to create an optimized svg url
+//  https://codepen.io/jakob-e/full/doMoML/
 //
 @function svg-url($svg) {
     //
     //  Add missing namespace
     //
-    @if not str-index($svg,xmlns) {
-        $svg: str-replace($svg, '<svg','<svg xmlns="http://www.w3.org/2000/svg"');
+    @if not str-index($svg, xmlns) {
+        $svg: str-replace($svg, '<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
     }
     //
     //  Chunk up string in order to avoid
     //  "stack level too deep" error
     //
-    $encoded:'';
+    $encoded: '';
     $slice: 2000;
     $index: 0;
-    $loops: ceil(str-length($svg)/$slice);
+    $loops: ceil(str-length($svg) / $slice);
     @for $i from 1 through $loops {
         $chunk: str-slice($svg, $index, $index + $slice - 1);
         //
         //   Encode
         //
-        $chunk: str-replace($chunk, '"', '\'');
+        $chunk: str-replace($chunk, '"', "'");
         $chunk: str-replace($chunk, '%', '%25');
         $chunk: str-replace($chunk, '#', '%23');
         $chunk: str-replace($chunk, '{', '%7B');
@@ -111,7 +108,7 @@
         $encoded: #{$encoded}#{$chunk};
         $index: $index + $slice;
     }
-    @return url("data:image/svg+xml,#{$encoded}");
+    @return url('data:image/svg+xml,#{$encoded}');
 }
 
 //  Background svg mixin
@@ -122,9 +119,10 @@
 //  Helper function to replace characters in a string
 @function str-replace($string, $search, $replace: '') {
     $index: str-index($string, $search);
-    @return if($index,
+    @return if(
+        $index,
         str-slice($string, 1, $index - 1) + $replace +
-        str-replace(str-slice($string, $index +
-        str-length($search)), $search, $replace),
-        $string);
+            str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
+        $string
+    );
 }

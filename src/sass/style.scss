@@ -1,12 +1,8 @@
-// Config
-@import "core/settings";
-@import "core/utils";
-
-// Vendor
-@import "core/vendor";
-
-// Defaults
-@import "core/global";
+// Core
+@import 'core/settings';
+@import 'core/vendor';
+@import 'core/utils';
+@import 'core/global';
 
 // Pages
-@import "pages/home";
+@import 'pages/home';
