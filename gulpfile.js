@@ -165,7 +165,9 @@ gulp.task('clean-assets', function() {
  */
 gulp.task('rev', ['clean-assets', 'sass', 'scripts'], function() {
     return gulp
-        .src([paths.sass.dest + '/*.css', paths.js.dest + '/*.js'], { base: paths.rev.dest })
+        .src([paths.sass.dest + '/*.css', paths.js.dest + '/*.js'], {
+            base: paths.rev.dest
+        })
         .pipe($.rev())
         .pipe($.revDeleteOriginal())
         .pipe(gulp.dest(paths.rev.dest))
@@ -183,10 +185,7 @@ gulp.task('serve', function() {
         online: false,
         notify: false,
         scrollRestoreTechnique: 'cookie',
-        files: [
-            paths.templates.dest + '/*.html',
-            paths.images.dest + '/*.{jpg,png,svg,gif,webp,ico}'
-        ],
+        files: [paths.templates.dest + '/*.html', paths.images.dest + '/*.{jpg,png,svg,gif,webp,ico}'],
         server: paths.templates.dest
     });
 });
@@ -212,13 +211,9 @@ gulp.task('watch', ['serve'], function() {
 /**
  * Default tasks
  */
-gulp.task(
-    'default',
-    ['watch', 'sass', 'scripts', 'template', 'svgicons', 'svgmin', 'images'],
-    function() {
-        $.util.log($.util.colors.green('Watching for changes...'));
-    }
-);
+gulp.task('default', ['watch', 'sass', 'scripts', 'template', 'svgicons', 'svgmin', 'images'], function() {
+    $.util.log($.util.colors.green('Watching for changes...'));
+});
 
 gulp.task('build', ['template', 'svgicons', 'svgmin', 'images', 'rev-template'], function() {
     $.util.log($.util.colors.green('Build is finished'));
