@@ -27,7 +27,7 @@
         "lint-staged": "^7.0.0",
         "node-sass-tilde-importer": "^1.0.0",
         "prettier": "^1.11.1",
-        "webpack": "^3.10.0",
+        "webpack": "^3.11.0",
         "webpack-stream": "^4.0.0"
     },
     "dependencies": {
@@ -36,6 +36,7 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "gulp",
         "build": "gulp build --production",
         "precommit": "lint-staged"
     },
@@ -45,6 +46,9 @@
         "tabWidth": 4
     },
     "lint-staged": {
-        "src/**/*.{js,json,scss}": ["prettier --write", "git add"]
+        "src/**/*.{js,json,scss}": [
+            "prettier --write",
+            "git add"
+        ]
     }
 }
