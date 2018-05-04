@@ -82,7 +82,7 @@ gulp.task('svgicons', function() {
  * Images
  */
 gulp.task('images', function() {
-    gulp
+    return gulp
         .src(paths.images.src)
         .pipe($.changed(paths.images.dest))
         .pipe($.imagemin())
@@ -136,7 +136,7 @@ gulp.task('scripts', function() {
 gulp.task('template', function() {
     return gulp
         .src(paths.templates.src)
-        .pipe($.ejs({}, {}, { ext: '.html' }))
+        .pipe($.ejs({}, {}, { ext: '.html', client: true }).on('error', $.util.log))
         .pipe(gulp.dest(paths.templates.dest));
 });
 
